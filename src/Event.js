@@ -26,9 +26,10 @@ render(){
   return(
     <div className = "event">
       <div className = "eventOverviewName">
-        <p>{this.props.event.name}</p>
-        <p>{this.props.event.local_date}</p>
-        <button className = "detailsButton" onClick = {()=> this.handleShowDetails()} >Show Details</button>
+        <p>{this.props.event.summary}</p>
+        <p>{this.props.event.start.dateTime}</p>
+        <button className = "detailsButton" onClick = {()=> this.handleShowDetails()} > Details</button>
+       
     
 
       </div>
@@ -37,8 +38,11 @@ render(){
             <p className='eventDetailsdescription'>
               {this.props.event.description}
             </p>
+           
             </div>
        )}
+       
+      
     </div>
 
   );

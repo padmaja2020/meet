@@ -4,7 +4,7 @@ import React, {Component} from 'react';
 class CitySearch extends Component{
     state = {
         locations: this.props.locations,
-        query: "Berlin, Germany",
+        query: "All",
         suggestions: [],
         showSuggestions: false,
       }
