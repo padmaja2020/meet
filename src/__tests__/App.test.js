@@ -73,7 +73,6 @@ describe ("<App /> Integration", ()=>{
     await CitySearchWrapper.instance().handleItemClicked(selectedCity);
     const allEvents = await getEvents();
     const eventsToShow = allEvents.filter(event => event.location === selectedCity);
-    console.log("Events" + eventsToShow);
     expect(AppWrapper.state('events')).toEqual(eventsToShow);
     AppWrapper.unmount();
   });
