@@ -49,6 +49,11 @@ export const extractLocations = (events) => {
   // }
     return mockData;
   };
+  // if (!navigator.onLine) {
+  //   const events = localStorage.getItem("lastEvents");
+  //   NProgress.done();
+  //   return { events: JSON.parse(events).events, locations:   extractLocations(JSON.parse(events).events) };
+  // }
 
   // export const getAccessToken = async () => {
   //   const accessToken = localStorage.getItem('access_token');

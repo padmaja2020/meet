@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 //import reportWebVitals from './reportWebVitals';
-//import * as serviceWorker from './serviceWorker';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import * as atatus from 'atatus-spa';
 
 ReactDOM.render(<App />, document.getElementById('root'));
@@ -13,6 +13,7 @@ ReactDOM.render(<App />, document.getElementById('root'));
 // Learn more about service workers: https://bit.ly/CRA-PWA
 
 //serviceWorker.unregister();
+serviceWorkerRegistration.register();
 atatus.config('5fd5984f089642139a323b4c').install();
 
 // ReactDOM.render(
