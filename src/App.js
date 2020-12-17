@@ -4,7 +4,12 @@ import EventList from './EventList';
 import CitySearch from './CitySearch';
 import NumberOfEvents from './NumberOfEvents';
 import { extractLocations, getEvents } from './api';
+//import EventGenre from './EventGenre';
 import "./nprogress.css";
+import {
+  ScatterChart, Scatter, XAxis, YAxis, CartesianGrid,   PieChart, Pie, Cell, Tooltip,ResponsiveContainer
+} from 'recharts';
+
 
 class App extends Component {
   state = {
@@ -50,12 +55,76 @@ class App extends Component {
       });
     });
   }
+
+  getData = ()=>{
+    const {locations, events} = this.state;
+    const data = locations.map((location)=>{
+      const number = events.filter((event)=>
+        event.location === location).length
+        const city = location.split(' ').shift()
+        return{city, number};
+    })
+      return data;
+
+  }
+
+  getGenreData = ()=>{
+    const { events} = this.state;
+    const genres = ['React', 'JavaScript', 'Node', 'jQuery', 'AngularJS'];
+         
+    const data = genres.map((genre)=>{
+        const value = events.filter((event)=> event.summary.split(' ').includes(genre)).length
+        return {name: genre, value};
+    })
+    
+    return data;
+  }
+
+
+
   render(){
   return (
     <div className="App">
-   
+    <h1>Meet App</h1>
+        <h4>Choose your nearest city</h4>
     <CitySearch locations={this.state.locations} updateEvents={this.updateEvents}/>
     <NumberOfEvents numberofevents = {this.state.numberofevents}  updateEvents={this.updateEvents}/>
+    <h4>Events in each city</h4>
+    <div className = 'data-vis-wrapper'>
+    {/* <EventGenre  events={this.state.events}/> */}
+
+    <ResponsiveContainer height = {400}>
+        <PieChart width={400} height={400}>
+        <Pie
+          data={this.getGenreData()}
+          cx={200}
+          cy={200}
+          labelLine={false}
+          label={({name, percent})=>`${name} ${(percent * 100).toFixed(0)}%`}
+          outerRadius={80}
+          fill="#8884d8"
+          dataKey="value"
+        >   
+       
+        </Pie>
+      </PieChart>
+      </ResponsiveContainer>
+        <ResponsiveContainer height={400}>
+     
+        <ScatterChart
+            
+              margin={{
+                top: 20, right: 20, bottom: 20, left: 20,
+              }}
+            >
+              <CartesianGrid />
+              <XAxis type="category" dataKey="city" name="city"  />
+              <YAxis type="number" dataKey="number" name="number of events" />
+              <Tooltip cursor={{ strokeDasharray: '3 3' }} />
+              <Scatter data={this.getData()} fill="#8884d8" />
+            </ScatterChart>
+            </ResponsiveContainer>
+      </div>
     <EventList events={this.state.events}/>
      
     </div>
